@@ -1,0 +1,33 @@
+{
+  "name": "broccoli-ember-i18n-precompile",
+  "description": "Ember i18n precompiler plugin for Broccoli",
+  "version": "0.0.1",
+  "author": {
+    "name": "Tom de Grunt",
+    "email": "tom@degrunt.nl"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "broccoli-ember-i18n-precompile"
+  },
+  "keywords": [
+    "broccoli-plugin",
+    "ember",
+    "ember-i18n"
+  ],
+  "dependencies": {
+    "mkdirp": "^0.3.5",
+    "lodash": "~2.4.1",
+    "quick-temp": "^0.1.0",
+    "broccoli-kitchen-sink-helpers": "^0.2.2",
+    "broccoli-writer": "^0.1.1",
+    "handlebars": "^2.0.0-alpha.4"
+  },
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/tdregunt/broccoli-ember-i18n-precompile/issues"
+  },
+  "homepage": "https://github.com/tdegrunt/broccoli-ember-i18n-precompile"
+}
