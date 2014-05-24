@@ -5,6 +5,7 @@ var quickTemp = require('quick-temp')
 var helpers = require('broccoli-kitchen-sink-helpers')
 var Writer = require('broccoli-writer');
 var handlebars = require('handlebars');
+var _ = require("lodash");
 
 function setValue(object, path, value) {
   var a = path.split('.');
