@@ -1,7 +1,6 @@
 var fs = require('fs')
 var path = require('path')
 var mkdirp = require('mkdirp')
-var quickTemp = require('quick-temp')
 var helpers = require('broccoli-kitchen-sink-helpers')
 var Writer = require('broccoli-writer');
 var handlebars = require('handlebars');
@@ -37,15 +36,11 @@ function Precompiler (inputTree, options) {
   }
 }
 
-Precompiler.prototype.write = function (readTree) {
+Precompiler.prototype.write = function (readTree, destDir) {
   var self = this
-  quickTemp.makeOrRemake(this, '_tmpDestDir')
   
-  //var destDir = path.join(this._tmpDestDir, self.outputFolder);
-  var destDir = path.join(self.outputFolder);
-    
-  var outputFiles = [];
-  
+  var myDestDir = path.join(destDir, self.outputFolder);
+      
   return readTree(this.inputTree).then(function (srcDir) {
     var languages = fs.readdirSync(srcDir).filter(function(d){
       var stats = fs.statSync(path.join(srcDir, d));
@@ -53,10 +48,10 @@ Precompiler.prototype.write = function (readTree) {
     });
 
     // setup the output-folder
-    mkdirp.sync(destDir);
+    mkdirp.sync(myDestDir);
     
     languages.forEach(function(language) {
-      var outputFile = path.join(destDir, language+".js");
+      var outputFile = path.join(myDestDir, language+".js");
       var languageDir = path.join(srcDir, language);
       
       var inputFiles = helpers.multiGlob(['**/*.json'], {cwd: languageDir})
@@ -83,14 +78,11 @@ Precompiler.prototype.write = function (readTree) {
         var res = handlebars.precompile(unescaped);
         return ": t(" + res.toString() + ")" + (p2 || ""); // We need to add back the colon and possibly the comma at the end
       });
+      var outputString = 'define("translations/en",["exports"],function(e){"use strict"; var t = Handlebars.template; var o = '+result+'; e["default"]= o;});';
 
-      fs.writeFileSync(outputFile, result);
-      outputFiles.push(outputFile);
+      fs.writeFileSync(outputFile, outputString);
     });
   });
 }
 
-Precompiler.prototype.cleanup = function () {
-  quickTemp.remove(this, '_tmpDestDir')
-}
 
