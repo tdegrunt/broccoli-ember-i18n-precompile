@@ -78,7 +78,7 @@ Precompiler.prototype.write = function (readTree, destDir) {
         var res = handlebars.precompile(unescaped);
         return ": t(" + res.toString() + ")" + (p2 || ""); // We need to add back the colon and possibly the comma at the end
       });
-      var outputString = 'define("translations/en",["exports"],function(e){"use strict"; var t = Handlebars.template; var o = '+result+'; e["default"]= o;});';
+      var outputString = 'define("translations/'+language+'",["exports"],function(e){"use strict"; var t = Handlebars.template; var o = '+result+'; e["default"]= o;});';
 
       fs.writeFileSync(outputFile, outputString);
     });
