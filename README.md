@@ -1,23 +1,38 @@
 # broccoli-ember-i18n-precompile
 
-WARNING: Work in progress
-
 The broccoli-ember-i18n-precompile plugin precompiles `.json` files with translations.
 
-This is a very opinionated plugin, it assumes a top level folder with the language name, 
-with individual folders and JSON files beneath them. So something like this:
+This is an opinionated plugin, it assumes a top level folder with the language name, 
+with individual folders and JSON files beneath them. It assumes you will load the translations at initialization time.
 
-It assumes you will load the translations at initialization time.
+Your translations folder will look something like this:
 
 ```
 app
 |- translations
 |  |- en
+|  |  navigation.json
 |  |  |- users
 |  |  |  |- index.json
 |  |- de
+|  |  navigation.json
 |  |  |- users
 |  |  |  |- index.json
+```
+
+You should end up with js files, with an object:
+
+```
+{
+  "navigation": {
+    ...
+  },
+  "users": {
+    "index": {
+      ...
+    }
+  }
+}
 ```
 
 ## Installation
@@ -31,7 +46,7 @@ npm install --save-dev broccoli-ember-i18n-precompile
 ```js
 var emberI18nPrecompile = require('broccoli-ember-i18n-precompile');
 
-var outputTree = emberI18nPrecompile(inputTrees, options)
+var outputTree = emberI18nPrecompile(inputTree, options)
 ```
 
 * **`inputTree`**: Trees that act as the source
