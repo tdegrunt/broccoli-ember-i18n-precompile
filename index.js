@@ -60,7 +60,7 @@ Precompiler.prototype.write = function (readTree, destDir) {
 
       inputFiles.forEach(function(inputFile) {
         var inputFilePath = path.join(languageDir, inputFile);
-        var valuePath = inputFile.substring(0,inputFile.indexOf('.json')).replace('/','.');
+        var valuePath = inputFile.substring(0,inputFile.indexOf('.json')).replace(/\//g,'.');
         
         var content = fs.readFileSync(inputFilePath, {encoding: 'utf8'});
         
